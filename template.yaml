@@ -1,0 +1,533 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
+Description: "SAM template for Nuggets Gameday Jokic tweet"
+Parameters:
+  Env:
+    Type: "String"
+    Description: "The name of the environment to which we're deploying"
+    Default: "dev"
+    AllowedValues:
+      - "dev"
+      - "prod"
+  SecretManagerArn:
+    Type: "String"
+    Description: "ARN of secret manager for Twitter auth"
+Resources:
+  JokicTwitterBot:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Description: "Twitter bot to spread Jokic love"
+      EphemeralStorage:
+        Size: 512
+      FunctionName: "JokicTwitterBot"
+      Environment:
+        Variables:
+          Env: !Ref Env
+      Events:
+        20231024LosAngelesLakers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-10-24T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231027MemphisGrizzlies:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-10-27T13:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231029OklahomaCityThunder:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-10-29T09:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231030UtahJazz:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-10-30T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231101MinnesotaTimberwolves:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-01T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231103DallasMavericks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-03T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231104ChicagoBulls:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-04T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231106NewOrleansPelicans:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-06T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231108GoldenStateWarriors:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-08T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231112HoustonRockets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-12T13:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231114LosAngelesClippers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-14T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231117NewOrleansPelicans:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-17T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231119ClevelandCavaliers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-19T12:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231120DetroitPistons:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-20T13:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231122OrlandoMagic:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-22T13:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231124HoustonRockets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-24T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231126SanAntonioSpurs:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-26T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231127LosAngelesClippers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-27T16:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231129HoustonRockets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-11-29T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231201PhoenixSuns:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-01T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231202SacramentoKings:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-02T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231206LosAngelesClippers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-06T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231208HoustonRockets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-08T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231211AtlantaHawks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-11T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231212ChicagoBulls:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-12T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231214BrooklynNets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-14T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231216OklahomaCityThunder:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-16T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231218DallasMavericks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-18T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231220TorontoRaptors:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-20T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231222BrooklynNets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-22T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231223CharlotteHornets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-23T13:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231225GoldenStateWarriors:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-25T08:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231228MemphisGrizzlies:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-28T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20231229OklahomaCityThunder:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2023-12-29T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240101CharlotteHornets:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-01T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240104GoldenStateWarriors:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-04T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240105OrlandoMagic:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-05T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240107DetroitPistons:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-07T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240110UtahJazz:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-10T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240112NewOrleansPelicans:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-12T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240114IndianaPacers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-14T09:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240116Philadelphia76ers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-16T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240119BostonCeltics:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-19T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240121WashingtonWizards:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-21T12:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240123IndianaPacers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-23T13:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240125NewYorkKnicks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-25T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240127Philadelphia76ers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-27T11:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240129MilwaukeeBucks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-29T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240131OklahomaCityThunder:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-01-31T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240202PortlandTrailBlazers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-02T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240204PortlandTrailBlazers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-04T14:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240208LosAngelesLakers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-08T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240209SacramentoKings:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-09T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240212MilwaukeeBucks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-12T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240214SacramentoKings:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-14T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240222WashingtonWizards:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-22T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240223PortlandTrailBlazers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-23T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240225GoldenStateWarriors:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-25T13:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240228SacramentoKings:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-28T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240229MiamiHeat:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-02-29T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240302LosAngelesLakers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-02T14:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240305PhoenixSuns:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-05T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240307BostonCeltics:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-07T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240309UtahJazz:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-09T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240311TorontoRaptors:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-11T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240313MiamiHeat:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-13T13:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240315SanAntonioSpurs:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-15T14:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240317DallasMavericks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-17T09:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240319MinnesotaTimberwolves:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-19T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240321NewYorkKnicks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-21T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240323PortlandTrailBlazers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-23T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240325MemphisGrizzlies:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-25T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240327PhoenixSuns:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-27T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240329MinnesotaTimberwolves:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-29T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240331ClevelandCavaliers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-03-31T09:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240402SanAntonioSpurs:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-04-02T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240404LosAngelesClippers:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-04-04T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240406AtlantaHawks:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-04-06T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240409UtahJazz:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-04-09T15:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240410MinnesotaTimberwolves:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-04-10T16:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240412SanAntonioSpurs:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-04-12T14:00:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+        20240414MemphisGrizzlies:
+          Properties:
+            GroupName: NuggetsSchedule
+            ScheduleExpression: at(2024-04-14T09:30:00)
+            ScheduleExpressionTimezone: America/Denver
+          Type: ScheduleV2
+      MemorySize: 128
+      Policies:
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn: !Ref SecretManagerArn
+      Tags:
+        Environment:
+          Fn::Sub: "${Env}"
+        Service: "lambda"
+        Managed_by: "sam"
+      Timeout: 300
+      PackageType: Image
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: .
+      DockerTag: v1
